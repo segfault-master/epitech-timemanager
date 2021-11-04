@@ -1,6 +1,8 @@
 <template>
   <div class="wrapper">
-    <div class="fixed-width"></div>
+    <div class="fixed-width">
+      <router-link :to="{ name: 'About' }" class="router-link">About</router-link>
+    </div>
     <div class="fixed-width"></div>
     <router-link :to="{ name: 'Home' }" class="router-link"><div>Time Manager</div></router-link>
     <div class="fixed-width">

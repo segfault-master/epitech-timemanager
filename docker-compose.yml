@@ -10,6 +10,8 @@ services:
       - phoenix
   phoenix:
     build: ./backend_timemanager
+    volumes:
+      - ./backend_timemanager:/app
     ports:
       - "4000:4000"
     depends_on:

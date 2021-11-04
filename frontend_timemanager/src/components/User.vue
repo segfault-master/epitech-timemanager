@@ -5,6 +5,8 @@
       <div class="wrapper">
         <input v-model="inputUsername" placeholder="username" />
         <input v-model="inputEmail" placeholder="email" />
+        <br>
+        Admin : <input type="checkbox" v-model="inputRole" />
         <button @click="createUser()">Create</button>
       </div>
     </div>
@@ -23,6 +25,7 @@
       <div class="wrapper">
         <input v-model="inputUsername" :placeholder="user.username" />
         <input v-model="inputEmail" :placeholder="user.email" />
+        <input type="checkbox" v-model="inputRole" />
         <input v-model="inputUserID" :placeholder="userID" type="number"/>
         <button @click="updateUser()">Update</button>
         <button @click="deleteUser()">Delete</button>
@@ -59,6 +62,7 @@ export default {
       inputUsername: '',
       inputUserID: null,
       errorMessage: '',
+      inputRole : false,
       page: 0
     }
   },
@@ -79,13 +83,15 @@ export default {
       let user = {
         "user": {
           "username": this.inputUsername,
-          "email": this.inputEmail
+          "email": this.inputEmail,
+          "role": this.inputRole
         }
       }
       userService.create(user).then((data) => {
         console.log(data);
         this.inputUsername = "";
         this.inputEmail = "";
+        this.inputRole = false;
         alert("Your id is: " + data.data.data.id + ", use it to login")
       }).catch ((error) => {
        this.errorMessage = error;
@@ -95,13 +101,15 @@ export default {
       let user = {
         "user": {
           "username": this.inputUsername,
-          "email": this.inputEmail
+          "email": this.inputEmail,
+          "role": this.role
         }
       }
       userService.update(user, this.inputUserID).then((data) => {
         console.log(data);
         this.inputUsername = "";
         this.inputEmail = "";
+        this.role = false;
         this.inputUserID = 0;
       }).catch ((error) => {
         this.errorMessage = error;

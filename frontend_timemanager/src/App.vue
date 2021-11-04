@@ -27,11 +27,13 @@ export default {
     this.userID = localStorage.getItem('userId') === null ? 0 : localStorage.getItem('userId');
     let username = localStorage.getItem('username');
     let email = localStorage.getItem('email');
-    if (username && email) {
+    let role = localStorage.getItem('role');
+    if (username && email && role) {
       this.user = {
         "id": this.userID,
         "username": username,
-        "email": email
+        "email": email,
+        "role": role
       }
     }
   },
@@ -46,6 +48,7 @@ export default {
     logout: function () {
       localStorage.removeItem('username')
       localStorage.removeItem('email')
+      localStorage.removeItem('role')
       localStorage.removeItem('userId')
       this.userID = 0
       this.user = null
@@ -55,6 +58,7 @@ export default {
       this.user = user;
       localStorage.setItem('username', user.username)
       localStorage.setItem('email', user.email)
+      localStorage.setItem('role', user.role)
     }
   }
 }

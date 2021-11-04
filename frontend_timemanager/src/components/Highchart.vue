@@ -87,13 +87,13 @@ export default {
           });
         }
         ctx.chartOptions.series[serie].data[day] = minute;
+        console.log("minute", minute)
       });
     },
     addLeadingZero(time){
       return ('0' + time).slice(-2);
     },
     get_days_based_on_weeks(){
-      console.log("date", new Date(this.startingDate).getDay() - 1)
 
       const dateRef = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
 
@@ -101,10 +101,14 @@ export default {
       arr.push.apply(arr, dateRef.slice(0, new Date(this.startingDate).getDay() -1))
       this.chartOptions.xAxis.categories = arr
 
-      var startingDate = new Date(this.startingDate);
-      for(var i = 0;i<7;i++){
-        const debut =  new Date(new Date(new Date().setDate(startingDate.getDate() + i)).setHours(2,0,0,0)); //-> 2 pour décalage
-        const fin =  new Date(new Date(new Date().setDate(startingDate.getDate() + i + 1)).setHours(2,0,0,0));
+      let startingDate2 = new Date(this.startingDate);
+
+      console.log("starting date: ", startingDate2);
+      for(let i = 0;i<7;i++){
+        const debut =  new Date(new Date(new Date(startingDate2).setDate(startingDate2.getDate() + i)).setHours(2,0,0,0)); //-> 2 pour décalage
+        const fin =  new Date(new Date(new Date(startingDate2).setDate(startingDate2.getDate() + i + 1)).setHours(2,0,0,0));
+
+        console.log("start end", debut, fin)
         this.heure_de_travail(debut.toISOString(), fin.toISOString(),i,0,this.userID);
         if(this.user2 != null){
           if(this.chartOptions.series.length === 1){
@@ -117,6 +121,7 @@ export default {
           this.heure_de_travail(debut.toISOString(), fin.toISOString(),i,1,this.user2);
         }
       }
+      console.log("hour", this.chartOptions.series[0].data)
     },
   },
   mounted(){

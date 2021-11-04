@@ -5,6 +5,8 @@ import ClockManager from "@/components/ClockManager";
 import WorkingTime from "@/components/WorkingTime";
 import WorkingTimes from "@/components/WorkingTimes";
 import ChartManager from "@/components/ChartManager";
+import About from "@/components/VisualComponent/About";
+import Error from "@/components/VisualComponent/Error";
 
 
 const routes = [
@@ -12,6 +14,11 @@ const routes = [
         path: '/',
         name: 'Home',
         component: LandingPage
+    },
+    {
+        path: '/about',
+        name: 'About',
+        component: About
     },
     {
         path: '/user/:page',
@@ -38,6 +45,11 @@ const routes = [
         name: 'Chart',
         component: ChartManager
     },
+    {
+        path: '/:pathMatch(.*)*',
+        name: 'Error',
+        component: Error
+    }
 
 ];
 

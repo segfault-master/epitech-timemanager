@@ -4,9 +4,13 @@
         v-bind:userID="userID"
     ></HighChart>
     <BubbleChart
+        v-if="user.role"
         v-bind:userID="userID"
+        v-bind:user="user"
     ></BubbleChart>
-    <LineYearChart></LineYearChart>
+    <LineYearChart
+      v-bind:user="user"
+    ></LineYearChart>
   </div>
 </template>
 
@@ -24,7 +28,8 @@ export default {
     LineYearChart
   },
   props: {
-    userID: Number
+    userID: Number,
+    user: Object
   }
 }
 </script>

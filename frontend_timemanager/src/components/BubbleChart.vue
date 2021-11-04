@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user.role">
     <highcharts :options="chartOptions"></highcharts>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
     highcharts: Chart 
   },
   props: {
-    userID: Number
+    userID: Number,
+    user: Object
   },
   data() {
     return {
@@ -107,6 +108,7 @@ export default {
     }
   },
   mounted(){
+    console.log(this.user)
     var ctx = this;
     userService.get_all().then(function(response){
       let context = ctx;

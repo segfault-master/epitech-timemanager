@@ -10,7 +10,7 @@
         <div>Last Shift Ended At: {{this.startTimeData}}</div>
         <button v-on:click="clock"> Clock'in </button>
       </div>
-    <button v-on:click="refresh"> Refresh </button>
+      <span class="time">{{ time }}</span>
   </div>
 </template>
 
@@ -24,7 +24,13 @@ export default {
   data() {
     return{
       startTimeData : null,
-      clockIn : false
+      clockIn : false,
+      time: '00:00:00',
+      timeBegan : null,
+      timeStopped : null,
+      stoppedDuration : 0,
+      started : null,
+      running : false,
     }
   },
   setup() {
@@ -42,6 +48,8 @@ export default {
             console.log(response.data.data[response.data.data.length-1].time)
             ctx.startTimeData = response.data.data[response.data.data.length-1].time;
             ctx.clockIn = response.data.data[response.data.data.length-1].status;
+
+            ctx.start();
           }else{
             ctx.startTimeData = null;
           }
@@ -74,13 +82,55 @@ export default {
       API.post(request,param).then(function(response){
         ctx.startTimeData = response.data.data.time;
         ctx.clockIn = response.data.data.status;
+        ctx.start();
       }).catch(function(err){
         console.log(err)
       });
+    },
+
+    start() {
+      console.log(this.clockIn);
+      if(this.clockIn != true){
+        this.reset();
+        return;
+      }
+
+      this.started = setInterval(this.clockRunning, 10);	
+    },
+
+    reset() {
+      clearInterval(this.started);
+      this.time = "00:00:00";
+    },
+
+    clockRunning(){
+      var start_clock = new Date(this.startTimeData);
+      start_clock.setHours(start_clock.getHours() -1);
+       var currentTime = new Date()
+        , timeElapsed = new Date(currentTime - start_clock)
+        , hour = timeElapsed.getUTCHours()
+        , min = timeElapsed.getUTCMinutes()
+        , sec = timeElapsed.getUTCSeconds();
+      console.log(currentTime);
+      console.log(timeElapsed);
+      this.time = 
+        this.zeroPrefix(hour,2) + ":" + 
+        this.zeroPrefix(min,2) + ":" + 
+        this.zeroPrefix(sec,2);
+    },
+    zeroPrefix(num, digit) {
+      var zero = '';
+      for(var i = 0; i < digit; i++) {
+        zero += '0';
+      }
+      return (zero + num).slice(-digit);
     }
-  },created(){
+
+
+  },mounted(){
     this.refresh();
-  }
+  },
+  
 }
 </script>
 

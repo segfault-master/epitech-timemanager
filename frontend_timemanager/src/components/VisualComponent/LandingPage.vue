@@ -7,7 +7,10 @@
           Welcome to time manager!
         </h2>
         <p>
-          time manager is not the 1st app to manage your worker's time, but in a modest way the best!
+          Time manager is not the 1st app to manage your worker's time, but in a modest way the best!
+        </p>
+        <p>Want to learn more about our app?
+          <router-link :to="{ name: 'About' }" class="router-link" style="font-weight: bold">Click Here!</router-link>
         </p>
       </div>
     </div>

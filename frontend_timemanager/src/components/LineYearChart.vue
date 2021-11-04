@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div v-if="user.role">
     <div>Graph all user Working Time :</div>
 
     <highchartsWT :options="chartOptionsWT"></highchartsWT>
-    <button @click="workingTimesYear()">THARICK</button>
+    <button @click="workingTimesYear()">refresh</button>
 
 
   </div>
@@ -25,13 +25,16 @@ export default {
     highchartsWT: Chart
   },
   props: {
-    userID: Number
+    user:Object
   },
   data() {
     return {
       chartOptionsWT: {
         chart: {
           type: 'line'
+        },
+        title: {
+          text: "Average Monthly Working hours"
         },
         series: [{
           data: [0,0,0,0,0,0,0,0,0,0,0,0], // sample data

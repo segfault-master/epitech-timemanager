@@ -2,9 +2,6 @@
   <div>
     <vue-cal
         style="height: 70vh"
-        hide-weekends
-        :time-from="8 * 60"
-        :time-to="19 * 60"
         :time-step="30"
         :events="events"
         :disable-views="['years', 'year']"
