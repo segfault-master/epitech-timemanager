@@ -9,6 +9,7 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
+      - uses: elstudio/action-install-azure-cli@v1
 
       - name: Azure Login
         uses: azure/login@v1
