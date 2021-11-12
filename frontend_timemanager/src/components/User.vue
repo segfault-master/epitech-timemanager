@@ -5,7 +5,7 @@
       <div class="wrapper">
         <input v-model="inputUsername" placeholder="username" />
         <input v-model="inputEmail" placeholder="email" />
-        <br>
+        <br />
         Admin : <input type="checkbox" v-model="inputRole" />
         <button @click="createUser()">Create</button>
       </div>
@@ -19,52 +19,47 @@
       </div>
     </div>
 
-
     <div v-if="page === 3">
       <H2>Profil</H2>
       <div class="wrapper">
         <input v-model="inputUsername" :placeholder="user.username" />
         <input v-model="inputEmail" :placeholder="user.email" />
         <input type="checkbox" v-model="inputRole" />
-        <input v-model="inputUserID" :placeholder="userID" type="number"/>
+        <input v-model="inputUserID" :placeholder="userID" type="number" />
         <button @click="updateUser()">Update</button>
         <button @click="deleteUser()">Delete</button>
       </div>
     </div>
 
     <Alert
-        class="alert"
-        v-bind:message="errorMessage"
-        v-if="errorMessage !== ''"
-        v-on:close="removeErrorMessage"
+      class="alert"
+      v-bind:message="errorMessage"
+      v-if="errorMessage !== ''"
+      v-on:close="removeErrorMessage"
     ></Alert>
   </div>
-
 </template>
 
 <script>
-
-
 import UserService from "@/services/user.service";
 import Alert from "@/components/VisualComponent/Alert";
-
 
 const userService = new UserService();
 
 export default {
   name: "User",
   components: {
-    Alert
+    Alert,
   },
   data() {
     return {
-      inputEmail: '',
-      inputUsername: '',
+      inputEmail: "",
+      inputUsername: "",
       inputUserID: null,
-      errorMessage: '',
-      inputRole : false,
-      page: 0
-    }
+      errorMessage: "",
+      inputRole: false,
+      page: 0,
+    };
   },
   mounted() {
     this.page = Number(this.$route.params.page);
@@ -72,85 +67,97 @@ export default {
   watch: {
     $route(to) {
       this.page = Number(to.params.page);
-    }
+    },
   },
   props: {
     userID: Number,
-    user: Object
+    user: Object,
   },
   methods: {
     createUser: function () {
+      console.log(window.location.hostname);
       let user = {
-        "user": {
-          "username": this.inputUsername,
-          "email": this.inputEmail,
-          "role": this.inputRole
-        }
-      }
-      userService.create(user).then((data) => {
-        console.log(data);
-        this.inputUsername = "";
-        this.inputEmail = "";
-        this.inputRole = false;
-        alert("Your id is: " + data.data.data.id + ", use it to login")
-      }).catch ((error) => {
-       this.errorMessage = error;
-      })
+        user: {
+          username: this.inputUsername,
+          email: this.inputEmail,
+          role: this.inputRole,
+        },
+      };
+      userService
+        .create(user)
+        .then((data) => {
+          console.log(data);
+          this.inputUsername = "";
+          this.inputEmail = "";
+          this.inputRole = false;
+          alert("Your id is: " + data.data.data.id + ", use it to login");
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
     },
     updateUser: function () {
       let user = {
-        "user": {
-          "username": this.inputUsername,
-          "email": this.inputEmail,
-          "role": this.role
-        }
-      }
-      userService.update(user, this.inputUserID).then((data) => {
-        console.log(data);
-        this.inputUsername = "";
-        this.inputEmail = "";
-        this.role = false;
-        this.inputUserID = 0;
-      }).catch ((error) => {
-        this.errorMessage = error;
-      })
+        user: {
+          username: this.inputUsername,
+          email: this.inputEmail,
+          role: this.role,
+        },
+      };
+      userService
+        .update(user, this.inputUserID)
+        .then((data) => {
+          console.log(data);
+          this.inputUsername = "";
+          this.inputEmail = "";
+          this.role = false;
+          this.inputUserID = 0;
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
     },
     getUser() {
-      userService.getSingle(this.inputUserID).then((data) => {
-        const res = data.data.data;
-        this.setUserId(res.id);
-        this.setUser(res);
-        this.inputUserID = 0;
-        this.$router.push({ name: 'User', params: { page: 3 }})
-      }).catch ((error) => {
-        this.errorMessage = error;
-      })
+      userService
+        .getSingle(this.inputUserID)
+        .then((data) => {
+          const res = data.data.data;
+          this.setUserId(res.id);
+          this.setUser(res);
+          this.inputUserID = 0;
+          this.$router.push({ name: "User", params: { page: 3 } });
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
     },
     deleteUser() {
-      userService.delete(this.inputUserID).then((data) => {
-        console.log(data);
-        this.errorMessage = "ok";
-      }).catch ((error) => {
-        this.errorMessage = error;
-      })
+      userService
+        .delete(this.inputUserID)
+        .then((data) => {
+          console.log(data);
+          this.errorMessage = "ok";
+        })
+        .catch((error) => {
+          this.errorMessage = error;
+        });
     },
     setUserId: function (evt) {
-      this.$emit('setUserID', evt)
+      this.$emit("setUserID", evt);
     },
     setUser: function (evt) {
-      this.$emit('setUser', evt)
+      this.$emit("setUser", evt);
     },
     removeErrorMessage: function () {
-      this.errorMessage = ''
-    }
+      this.errorMessage = "";
+    },
   },
-}
-
+};
 </script>
 
 <style scoped>
-  button, input {
-    margin-top: 1em;
-  }
-
+button,
+input {
+  margin-top: 1em;
+}
 </style>
