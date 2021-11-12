@@ -35,6 +35,5 @@ jobs:
           docker context use mytimemanager
           docker compose up
           docker ps
-        
-            
 
+            
