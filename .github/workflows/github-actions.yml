@@ -16,12 +16,18 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Login to Azure-Docker
+        uses: azure/docker-login@v1
+        with:index.docker.io
+          login-server: contoso.azurecr.io
+          username: ${{ secrets.AZURE_CREDENTIALS.clientId }}
+          password: ${{ secrets.AZURE_CREDENTIALS.clientSecret }}
+
       - name: Git Clone
         run:
           rm -rf my_code
           git clone https://github.com/segfault-master/epitech-timemanager.git my_code
           cd my_code
-          docker login --username '${{secrets.DOCKER_LOGIN}}' --password '${{secrets.DOCKER_PASSWORD}}'
           docker-compose build
 
       - name: Docker Action
