@@ -18,8 +18,8 @@ jobs:
 
       - name: Login to Azure-Docker
         uses: azure/docker-login@v1
-        with:index.docker.io
-          login-server: contoso.azurecr.io
+        with:
+          login-server: index.docker.io
           username: ${{ secrets.AZURE_CREDENTIALS.clientId }}
           password: ${{ secrets.AZURE_CREDENTIALS.clientSecret }}
 
