@@ -20,8 +20,8 @@ jobs:
         uses: azure/docker-login@v1
         with:
           login-server: index.docker.io
-          username: ${{ secrets.AZURE_CREDENTIALS.clientId }}
-          password: ${{ secrets.AZURE_CREDENTIALS.clientSecret }}
+          username: ${{ secrets.DOCKER_LOGIN }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Git Clone
         run:
