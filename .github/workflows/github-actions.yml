@@ -29,11 +29,12 @@ jobs:
           git clone https://github.com/segfault-master/epitech-timemanager.git my_code
           cd my_code
           docker-compose stop
-          docker-compose 
           docker-compose build
+          docker images
+          docker ps
           docker-compose push
           docker context use mytimemanager
           docker compose up
-          docker ps
+        
 
             
