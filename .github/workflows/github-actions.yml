@@ -21,5 +21,18 @@ jobs:
         with:
           azcliversion: 2.0.72
           inlineScript: |
-            az account show
-            az storage -h
+            az acr login --name timemanagerpar2
+            rm -rf my_code
+            git clone https://github.com/segfault-master/epitech-timemanager.git my_code
+            cd my_code
+            docker-compose build
+            docker-compose push
+            docker context use mytimemanager
+            docker compose up
+      - name: get inlineScript
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az acr login --name timemanagerpar2
+            docker ps
