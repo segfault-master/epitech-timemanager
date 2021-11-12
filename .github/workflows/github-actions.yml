@@ -9,14 +9,12 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: check secret access
-        run: |
-          echo ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          enable-AzPSSession: true
       
       - name: Azure CLI script
         uses: azure/CLI@v1
