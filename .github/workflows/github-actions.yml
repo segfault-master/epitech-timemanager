@@ -23,20 +23,22 @@ jobs:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Git Clone
-        run:
-          rm -rf my_code
-          git clone https://github.com/segfault-master/epitech-timemanager.git my_code
-          cd my_code
-          docker-compose build
-
       - name: Docker Action
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
             az acr login --name timemanagerpar2
-            docker-compose push
-            docker context use mytimemanager
-            docker compose up
-            docker ps
+
+      - name: Git Clone
+        run:
+          rm -rf my_code
+          git clone https://github.com/segfault-master/epitech-timemanager.git my_code
+          cd my_code
+          docker-compose build
+          docker-compose push
+          docker context use mytimemanager
+          docker compose up
+          docker ps
+            
+
