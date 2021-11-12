@@ -1,8 +1,6 @@
 name: Deployement
 on: [push]
 
-name: AzureLoginSample
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
