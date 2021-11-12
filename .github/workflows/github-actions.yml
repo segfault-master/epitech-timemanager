@@ -19,7 +19,7 @@ jobs:
       - name: Login to Azure-Docker
         uses: azure/docker-login@v1
         with:
-          login-server: index.docker.io
+          login-server: timemanagerpar2
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
