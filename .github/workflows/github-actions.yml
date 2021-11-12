@@ -23,13 +23,13 @@ jobs:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      
-
-      - name: Git Clone
+      - name: Git Clone && docker action
         run:
           rm -rf my_code
           git clone https://github.com/segfault-master/epitech-timemanager.git my_code
           cd my_code
+          docker-compose stop
+          docker-compose 
           docker-compose build
           docker-compose push
           docker context use mytimemanager
