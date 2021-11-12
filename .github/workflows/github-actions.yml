@@ -27,7 +27,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az acr login --name timemanagerpar2
+            az acr login --name timemanagerpar2 --expose-token
 
       - name: Git Clone && docker action
         run: |
