@@ -23,6 +23,12 @@ jobs:
           username: ${{ secrets.DOCKER_LOGIN }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Azure registre connection
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az acr login --name timemanagerpar2
+
       - name: Git Clone && docker action
         run: |
           rm -rf my_code
