@@ -8,15 +8,15 @@ jobs:
       runs-on: ubuntu-latest
       steps:
 
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
       - name: Login to Azure
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Checkout source code
-        uses: actions/checkout@v2
-
-      - name: Azure CLI script
+      - name: Clone Code in Azure
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
@@ -29,10 +29,34 @@ jobs:
             docker-compose push
             docker context use mytimemanager
             docker compose up
-      - name: get inlineScript
+
+      - name: Docker Action1
         uses: azure/CLI@v1
         with:
           azcliversion: 2.0.72
           inlineScript: |
             az acr login --name timemanagerpar2
+            cd my_code
+            docker-compose build
+
+      - name: Docker Action2
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az acr login --name timemanagerpar2
+            cd my_code
+            docker-compose push
+            docker context use mytimemanager
+            docker compose up
+            docker ps
+      - name: Docker Action3
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az acr login --name timemanagerpar2
+            cd my_code
+            docker context use mytimemanager
+            docker compose up
             docker ps
