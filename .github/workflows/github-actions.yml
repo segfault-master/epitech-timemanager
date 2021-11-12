@@ -15,3 +15,11 @@ jobs:
 
       - name: Checkout source code
         uses: actions/checkout@v2
+
+      - name: Azure CLI script
+        uses: azure/CLI@v1
+        with:
+          azcliversion: 2.0.72
+          inlineScript: |
+            az account show
+            az storage -h
