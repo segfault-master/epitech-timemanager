@@ -1,12 +1,17 @@
-name: Deployement
 on: [push]
 
+name: AzureARMDeploy
+
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Log in with Azure
+
+    deploy:
+      runs-on: ubuntu-latest
+      steps:
+
+      - name: Login to Azure
         uses: azure/login@v1
         with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
-          
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
