@@ -7,6 +7,15 @@ jobs:
     deploy:
       runs-on: ubuntu-latest
       steps:
+      
+      - name: Check Docker Version1
+        run: docker --version
+        
+      - name: install docker
+        run: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+        
+      - name: Check Docker Version2
+        run: docker --version
 
       - name: Checkout source code
         uses: actions/checkout@v2
