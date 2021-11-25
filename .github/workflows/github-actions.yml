@@ -24,12 +24,6 @@ jobs:
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
-          
-      - name: 'Run az commands'
-        run: |
-          az account show
-          az group list
-          pwd 
 
       - name: Login to Azure-Docker
         uses: azure/docker-login@v1
