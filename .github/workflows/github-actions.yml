@@ -33,6 +33,8 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
       - name: 'create context'
         run: |
+            docker context list
+            docker context use default
             docker context create aci mytimemanager
             docker context list
       - name: 'build'
